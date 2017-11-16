@@ -56,15 +56,17 @@ router.get('/test/submit', function (req, res, next) {
             resolve(array);
             //--------------------------------------
         }).then(function (arr) {
-            console.log();
-            console.log(arr);
+           // console.log();
+          //  console.log(arr);
             //--------------------------------------
             if (arr.length == 0) {
 
                 res.render('theResult', { item1: arr.length == 0 ,Text: text } );
             }
             else {
-                res.render('theResult', { item: arr ,Text: text, page: page} );}
+                res.render('theResult', { item: arr ,Text: text, page: page} );
+
+            }
             //--------------------------------------
         });
     });
@@ -76,7 +78,7 @@ router.get('/Document/:id/:text/:page', function(req, res, next)
         var id2 = req.params.id;
         var searchKey = req.params.text;
         var page = req.params.page;
-
+        console.log(page);
         mongo.connect(url, function (err, db) {
             return new Promise(function (resolve, reject) {
                 if (err) reject(err);
@@ -89,6 +91,7 @@ router.get('/Document/:id/:text/:page', function(req, res, next)
                 //--------------------------------------
             }).then(function (arr) {
                 //--------------------------------------
+                page = (parseInt(page) - 1);
                 res.render('Document', { item: arr , Text: id2, searchKey:searchKey, page:page} );
                 //--------------------------------------
             });
