@@ -84,7 +84,12 @@
 <h2 style="margin-bottom: 30px;">Search results for: {{Text}}</h2>
 {{#if item1 }}
     <div class="col-md-12">
-        <h2>Ooops, No results found!</h2>
+        <h2>Ooops, No result</h2>
+    </div>
+{{/if}}
+{{#if item2 }}
+    <div class="col-md-12">
+        <h2>End Of search</h2>
     </div>
 {{/if}}
 <table class="table">
@@ -102,8 +107,10 @@
     <button type="submit" class="btn btn-full">Back to main page</button>
 </form>
 
+    {{#if page }}
+        <a  href="http://localhost:3000/test/submit?id={{Text}}&page={{page}}">Next</a>
+    {{/if}}
 
-    <a href="http://localhost:3000/test/submit?id={{Text}}&page={{page}}">Next</a>
 </div>
 
 </body>

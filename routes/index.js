@@ -59,6 +59,12 @@ router.get('/test/submit', function (req, res, next) {
            // console.log();
           //  console.log(arr);
             //--------------------------------------
+            if (page>=3 && arr.length == 0){
+
+                res.render('theResult', { item2: true ,Text: text } );
+
+            }
+
             if (arr.length == 0) {
 
                 res.render('theResult', { item1: arr.length == 0 ,Text: text } );
