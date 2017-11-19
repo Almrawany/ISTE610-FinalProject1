@@ -84,34 +84,54 @@
 <h2 style="margin-bottom: 30px;">Search results for: {{Text}}</h2>
 {{#if item1 }}
     <div class="col-md-12">
-        <h2>Ooops, No result</h2>
+        <h2>Ooops, No results found!</h2>
     </div>
 {{/if}}
-{{#if item2 }}
+{{#if item2}}
     <div class="col-md-12">
-        <h2>End Of search</h2>
+        <h2>No more result</h2>
+            {{page}}
+            <a  href="http://localhost:3000/test/submit?id={{Text}}&page={{page-1}}"><button type="back">Go back to search results</button></a>
+
     </div>
 {{/if}}
+
+
 <table class="table">
     {{# each item }}
-            <tr> <a href="/Document/{{this._id}}">
-                <td><a href="/Document/{{this._id}}/{{../Text}}/{{../page}}">{{this.title}}<br/></a>{{this.description}}</td>
-                <td style="text-align:center"><em><strong>{{this.main_speaker}}</strong></em></td>
-            </a>
-            </tr>
+        <tr> <a href="/Document/{{this._id}}">
+            <td><a href="/Document/{{this._id}}/{{../Text}}/{{../page}}">{{this.title}}<br/></a>{{this.description}}</td>
+            <td style="text-align:center"><em><strong>{{this.main_speaker}}</strong></em></td>
+        </a>
+        </tr>
     {{/each}}
 </table>
 
 <div>
-<form action="/return" method="get" style="text-align: center">
-    <button type="submit" class="btn btn-full">Back to main page</button>
-</form>
+    <form action="/return" method="get" style="text-align: center">
+        <button type="back">Back to main page</button>
+    </form>
 
-    {{#if page }}
-        <a  href="http://localhost:3000/test/submit?id={{Text}}&page={{page}}">Next</a>
-    {{/if}}
+{{#if page}}
+    {{page}}
+    {{#if previous}}
+        <a  id="previous"><button type="back">Previous</button></a>
+        <script>
+            //console.log("here");
+            var pg = {{page}};
+            pg = pg -2;
+            var ur = 'http://localhost:3000/test/submit?id={{Text}}&page=' + pg;
+        document.getElementById("previous").setAttribute("href", ur);
+        </script>
+        {{/if}}
+    <a  id="back" href="http://localhost:3000/test/submit?id={{Text}}&page={{page}}"><button type="back">Next</button></a>
+       {{#if pre }}
+        <script> document.getElementById("back").style.display = "none"; </script>
+{{/if}}
+{{/if}}
 
-</div>
+
+    </div>
 
 </body>
 

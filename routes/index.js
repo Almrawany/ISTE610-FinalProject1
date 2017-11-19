@@ -10,13 +10,35 @@ var ObjectID = require('mongodb').ObjectID;
 
 /* GET home page. */
 
+router.get('/',function(req, res, next) {
 
+    mongo.connect(url, function (err, db) {
+        return new Promise(function (resolve, reject) {
+            if (err) reject(err);
 
+            var array = db.collection('Ted').find().limit(18);
+            //console.log(array);
+            db.close();
+            resolve(array);
+            //--------------------------------------
+        }).then(function (arr) {
+            //--------------------------------------
+            console.log(arr);
+            res.render('index', {item: arr});
+        });
+
+    });
+});
+/*
 
 router.get('/', function(req, res, next) {
-    res.render('index');
-});
+    var array = db.collection('Ted').find().sort({views: -1}).limit(18);
 
+    res.render('index', {array:array});
+
+
+});
+*/
 // the connectons and query
 
 router.get('/test/submit', function (req, res, next) {
@@ -29,7 +51,7 @@ router.get('/test/submit', function (req, res, next) {
     var str1 = "\\b" + text + "\\b.*";
     var skip = 0;
     var max = 10;
-
+    var previous;
     if (!page) {
         page = 2;
     } else {
@@ -42,36 +64,36 @@ router.get('/test/submit', function (req, res, next) {
         return new Promise(function (resolve, reject) {
             if (err) reject(err);
             //--------------------------------------
-            
+
             var array = db.collection('Ted').find({$or: [{title: {$regex: new RegExp(str, "i")}}, {main_speaker: {$regex: new RegExp(str1, "i")}}]}).limit(max).skip(skip).toArray();
 
-            //var array = db.collection('Ted').find({title: "/.*/b" + text + ".*/i" }).toArray();
-            //console.log(array);
-            // array = db.collection('Ted').find({main_speaker: { $regex: ".*" + text + ".*", $options: "i" }}).toArray();
-            // console.log(array);
-            // array = db.collection('Ted').find({tags: { $regex: ".*" + text + ".*", $options: "i" }}).limit(100).toArray();
-            // console.log(array);
 
             db.close();
             resolve(array);
             //--------------------------------------
         }).then(function (arr) {
-           // console.log();
-          //  console.log(arr);
+           // console.log(arr);
             //--------------------------------------
-            if (page>=3 && arr.length == 0){
 
-                res.render('theResult', { item2: true ,Text: text } );
+          // for no more result
+            if (page>2 && arr.length == 0){
+
+                res.render('theResult', { item2: true ,Text: text, pre:true, page:page} );
 
             }
 
-            if (arr.length == 0) {
+            // when there is no result
+            if (page==2 && arr.length == 0) {
 
-                res.render('theResult', { item1: arr.length == 0 ,Text: text } );
+                res.render('theResult', { item1: arr.length == 0 ,Text: text} );
             }
+            // in there is result
             else {
+                if (page ==2)
                 res.render('theResult', { item: arr ,Text: text, page: page} );
 
+                else
+                    res.render('theResult', { item: arr ,Text: text, page: page, previous:true });
             }
             //--------------------------------------
         });
@@ -97,7 +119,7 @@ router.get('/Document/:id/:text/:page', function(req, res, next)
                 //--------------------------------------
             }).then(function (arr) {
                 //--------------------------------------
-                page = (parseInt(page) - 1);
+                 page = (parseInt(page) - 1);
                 res.render('Document', { item: arr , Text: id2, searchKey:searchKey, page:page} );
                 //--------------------------------------
             });
