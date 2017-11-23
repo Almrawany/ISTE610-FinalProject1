@@ -14,12 +14,6 @@
         padding: 50px 0 0 0;
     }
 
-    .col-md-4 {
-        margin-left: 80px;
-    }
-
-
-
     .navbar {
         border-radius: 0px;
         padding: 0px;
@@ -57,7 +51,7 @@
         color:black;
         opacity: 0.8;
     }
-    button {
+    .button, button {
         background-color: black;
         font-family: "Roboto", Helvetica, Arial, sans-serif;
         font-weight: 800;
@@ -65,9 +59,8 @@
         padding: 15px 45px;
         border-radius: 50px;
         margin-top: 20px;
-
     }
-    button:hover {
+    .button:hover, button:hover {
         background-color: white;
         color: black;
     }
@@ -83,16 +76,12 @@
     }
     .row {
         margin-right: 0px;
-    }
-
+         }
     h3 {
         font-size: 20px;
     }
 </style>
 <body>
-<div class="col-md-12">
-    <a href="http://localhost:3000/test/submit?id={{searchKey}}&page={{page}}"><button type="back">Back</button></a>
-</div>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -108,17 +97,23 @@
         </ul>
     </div>
 </nav>
+
+{{#if page}}
+    <div class="col-md-12" style="margin-top: 25px; font-size: 10px;">
+    <a class="button" href="http://localhost:3000/test/submit?id={{searchKey}}&page={{page}}">Back to results</a>
+    </div>
+    {{/if}}
 <body>
 <div class="row">
-{{# each item }}
-        <div class="col-md-7">
-            <div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe width="854" height="480" style="padding: 55px 45px;" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" style="border:2px solid grey; padding: 15px 45px;" allowfullscreen src={{this.url}}></iframe></div></div>
-            <h2 style="padding: 15px 45px;"><strong>{{this.title}}</strong></h2>
+    {{# each item }}
+        <div class="col-md-7" style="margin-left: 10px; margin-top:40px;">
+            <div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen src={{this.url}}></iframe></div></div>
+            <h2><em><strong>{{this.title}}</strong></em></h2>
         </div>
 
         <div class="col-md-4">
 
-            <ul class="nav nav-tabs" style="padding-left: 10px;">
+            <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#home">Information</a></li>
                 <li><a data-toggle="tab" href="#menu1">Comments</a></li>
             </ul>
@@ -126,11 +121,11 @@
             <div class="tab-content">
                 <div id="home" class="tab-pane fade in active">
                     <div>
-                        <h3><strong>Description: </strong>{{this.description}}</h3>
-                        <h3><strong>Held at: </strong>{{this.event}}</h3>
-                        <h3><strong>Available in: </strong>{{this.languages}} languages.</h3>
-                        <h3><strong>Date of Ted talk: </strong>{{this.date}}</h3>
-                        <h3><strong>No of views: </strong>{{this.views}}</h3>
+                        <h3><strong><em>Description: </em></strong>{{this.description}}</h3>
+                        <h3><strong><em>Held at: </em></strong>{{this.event}}</h3>
+                        <h3><strong><em>Available in: </em></strong>{{this.languages}}<strong><em> languages.</em></strong></h3>
+                        <h3><strong><em>Date of Ted talk: </em></strong>{{this.date}}</h3>
+                        <h3><strong><em>No of views: </em></strong>{{this.views}}</h3>
                     </div>
                 </div>
                 <div id="menu1" class="tab-pane fade">
@@ -138,7 +133,7 @@
                         {{#each this.comment2}}
                             <tr>
                                 <td style="border-bottom: solid 1px #ddd; border-top:none;"><h4>{{this}}</h4></td>
-                            </tr>
+                        </tr>
                         {{/each}}
                     </table>
                     <form action="/add/comment" method="post">
@@ -150,16 +145,12 @@
             </div>
         </div>
     </div>
-{{/each}}
+    {{/each}}
 </div>
 <div class="col-md-12">
     <form action="/return" method="get">
         <button type="back">Back to main page</button>
     </form>
-    <br>
-    <br>
 </div>
-<br>
-<br>
 
 </body>

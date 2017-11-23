@@ -90,8 +90,8 @@
 {{#if item2}}
     <div class="col-md-12">
         <h2>No more result</h2>
-            {{page}}
-            <a  href="http://localhost:3000/test/submit?id={{Text}}&page={{page-1}}"><button type="back">Go back to search results</button></a>
+
+            <a style="font-size: 15px; margin-left: 38%;" href="http://localhost:3000/test/submit?id={{Text}}&page={{page-1}}"><button type="back">Go back to search results</button></a>
 
     </div>
 {{/if}}
@@ -113,25 +113,23 @@
     </form>
 
 {{#if page}}
-    {{page}}
     {{#if previous}}
-        <a  id="previous"><button type="back">Previous</button></a>
+        <a  style="float:left;font-size: 15px;" id="previous"><button type="back">Previous</button></a>
         <script>
-            //console.log("here");
-            var pg = {{page}};
+            var pg = 0;
+            pg = {{page}};
             pg = pg -2;
             var ur = 'http://localhost:3000/test/submit?id={{Text}}&page=' + pg;
-        document.getElementById("previous").setAttribute("href", ur);
+            document.getElementById("previous").setAttribute("href", ur);
         </script>
+    {{/if}}
+    <a  style="float:right; font-size: 15px;" id="back" href="http://localhost:3000/test/submit?id={{Text}}&page={{page}}"><button type="back">Next</button></a>
+       {{#if pre}}
+             <script> document.getElementById("back").style.display = "none"; </script>
         {{/if}}
-    <a  id="back" href="http://localhost:3000/test/submit?id={{Text}}&page={{page}}"><button type="back">Next</button></a>
-       {{#if pre }}
-        <script> document.getElementById("back").style.display = "none"; </script>
-{{/if}}
 {{/if}}
 
-
-    </div>
+</div>
 
 </body>
 

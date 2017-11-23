@@ -43,4 +43,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+var mongo = require('mongodb');
+var Grid = require('gridfs-stream');
+
+// create or use an existing mongodb-native db instance
+
+
+
 module.exports = app;

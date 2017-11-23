@@ -4,8 +4,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        function getImage(imageName, elementID) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "getImage?name=" + imageName);
+            xhr.responseType = "blob";
+            xhr.onload = response;
+            xhr.send();
+
+            function response(e) {
+                var urlCreator = window.URL || window.webkitURL;
+                var imageUrl = urlCreator.createObjectURL(this.response);
+                document.querySelector("#" + elementID).src = imageUrl;
+            }
+        }
+    </script>
 </head>
 
 <style>
@@ -160,7 +175,7 @@
     <div class ="row">
         <div class="col-md-6" style="padding-top: 150px;"><img src="Images/bg.jpg" alt="Tedtalk" width="100%" height="300px" ></div>
         <div class="col-md-6">
-            <form action="/test/submit/" method="get">
+            <form action="/test/submit" method="get">
                 <input type="text" name="id" placeholder="Ted talk title/ speaker name"> <br>
                 <button type="submit" class="btn btn-full">Explore!</button>
             </form>
@@ -175,147 +190,42 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
-            <img src="/Images/schools_creativity.png" alt="Do schools kill creativity?" style="width:90%">
-            <div class="overlay" >
-                <div class="text"><a href="/Document/5a039f339f15439072f31c31">Watch</a></div>
+        {{# each item }}
+            <div class="col-sm-2" style="margin-bottom: 30px">
+                <img src="{{this.images}}" alt="Do schools kill creativity?" style="width:90%; height: 100px; max-height: 100px;">
+                <div class="overlay" >
+                    <div class="text"><a href="/Document/{{this._id}}">Watch</a></div>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-2">
-            <img src="/Images/orgasm.png" alt="10 things you don't know about orgasm." style="width:90%">
-            <div class="overlay">
-                <div class="text"><a href="/Document/5a039f359f15439072f31df5">Watch</a></div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <img src="/Images/great_leaders.png" alt="How great leaders inspire action?" style="width:90%">
-            <div class="overlay">
-                <div class="text"><a href="/Document/5a039f359f15439072f31ed6">Watch</a></div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <img src="/Images/vulnerability.png" alt="The power of vulnerability" style="width:90%">
-            <div class="overlay">
-                <div class="text"><a href="/Document/5a039f359f15439072f31f76">Watch</a></div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <img src="/Images/climate.png" alt="Averting the climate crisis" style="width:90%">
-            <div class="overlay">
-                <div class="text"><a href="/Document/5a039f339f15439072f31c32">Watch</a></div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <img src="/Images/happy.png" alt="There's more to life than being happy" style="width:90%">
-            <div class="overlay">
-                <div class="text"><a href="/Document/5a039f359f15439072f3261c">Watch</a></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-2">
-            <img src="/Images/company.png" alt="How to build a company where the best ideas win?" style="width:90%">
-            <div class="overlay">
-                <div class="text"><a href="/Document/5a039f359f15439072f32617">Watch</a></div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <img src="/Images/social.png" alt="The secret to living longer may be your social life." style="width:90%">
-            <div class="overlay">
-                <div class="text"><a href="/Document/5a039f359f15439072f32603">Watch</a></div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <img src="/Images/ideas.png" alt="How boredom can lead to your most brilliant ideas?" style="width:90%">
-            <div class="overlay">
-                <div class="text"><a href="/Document/5a039f359f15439072f32610">Watch</a></div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <img src="/Images/eclipse.png" alt="You owe it to yourself to experience a total solar eclipse" style="width:90%">
-            <div class="overlay">
-                <div class="text"><a href="/Document/5a039f359f15439072f325fb">Watch</a></div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <img src="/Images/beautiful.png" alt="How your brain decides what is beautiful?" style="width:90%">
-            <div class="overlay">
-                <div class="text"><a href="/Document/5a039f359f15439072f325fd">Watch</a></div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <img src="/Images/ai.png" alt="How AI can enhance our memory, work and social lives?" style="width:90%">
-            <div class="overlay">
-                <div class="text"><a href="/Document/5a039f359f15439072f325fa">Watch</a></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-2">
-            <img src="/Images/robot.png" alt="Meet Spot, the robot dog that can run, hop and open doors" style="width:90%">
-            <div class="overlay" >
-                <div class="text"><a href="/Document/5a039f359f15439072f325f4">Watch</a></div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <img src="/Images/nose.png" alt="You smell with your body, not just your nose" style="width:90%">
-            <div class="overlay">
-                <div class="text"><a href="/Document/5a039f359f15439072f325f3">Watch</a></div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <img src="/Images/tech.png" alt="How a handful of tech companies control billions of minds every day" style="width:90%">
-            <div class="overlay">
-                <div class="text"><a href="/Document/5a039f359f15439072f325f2">Watch</a></div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <img src="/Images/goals.png" alt="Why you should define your fears instead of your goals?" style="width:90%">
-            <div class="overlay">
-                <div class="text"><a href="/Document/5a039f359f15439072f325db">Watch</a></div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <img src="/Images/love.png" alt="Thoughts on humanity, fame and love" style="width:90%">
-            <div class="overlay">
-                <div class="text"><a href="/Document/5a039f359f15439072f325c5">Watch</a></div>
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <img src="/Images/future.png" alt="The future we're building -- and boring" style="width:90%">
-            <div class="overlay">
-                <div class="text"><a href="/Document/5a039f359f15439072f325bc">Watch</a></div>
-            </div>
-        </div>
+        {{/each}}
     </div>
 </div>
 
 <div id="about" class="container-fluid">
     <div class="row" style="text-align: center;">
         <div class="col-md 12" style="margin-bottom:150px">
-            <h3 style="font-size: 32px; color:white; text-align: center; font-weight: 700;"> About us</h3>
+            <h3 style="font-size: 32px; color:white; text-align: center; font-weight: 700;">Team</h3>
         </div>
     </div>
     <div class="row" style="text-align: center;">
         <div class="col-md-4" style="border-right:solid 3px black; border-radius: 2px">
-            <img src="/Images/avatar_women.png" width="40%"  height="50%" alt="Sanya" style="border-radius:50%; margin-bottom: 20px;">
+            <img src="/Images/avatar_women.png" id="img3" width="40%"  height="50%" alt="Sanya" style="border-radius:50%; margin-bottom: 20px;">
             <h4 style="color:white">Sanya Kaur Gulati</h4>
         </div>
         <div class="col-md-4" style="border-right:solid 3px black; border-radius: 2px">
-            <img src="/Images/avatar_man.png" width="40%"  height="50%"  alt="Mohammed" style="border-radius:50%; margin-bottom: 20px;">
-            <h4 style="color:white">Mohammed</h4>
+            <img src="/Images/avatar_man.png" id="img1" width="40%"  height="50%"  alt="Mohammed" style="border-radius:50%; max-height:210px; margin-bottom: 20px;">
+            <h4 style="color:white">AlJohany Mohammed</h4>
         </div>
         <div class="col-md-4">
-            <img src="/Images/avatar_man.png" width="40%"  height="50%" alt="Raghu" style="border-radius:50%; margin-bottom: 20px;">
-            <h4 style="color:white">Raghu</h4>
+            <img src="/Images/avatar_man.png" id="img2" width="40%"  height="50%" alt="Raghu" style="border-radius:50%; margin-bottom: 20px;">
+            <h4 style="color:white">Raghu Nandhana</h4>
         </div>
     </div>
 
-
-
+    <script>
+        getImage("IMG_0032.PNG", "img1");
+        getImage("FullSizeRender.png", "img2");
+        getImage("IMG_2107.png", "img3");
+    </script>
 </div>
-
-
 </body>
